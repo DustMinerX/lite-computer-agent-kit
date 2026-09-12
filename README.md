@@ -72,8 +72,8 @@ Reference, with every argument and error: https://lite.computer/help/agent-comma
 
 LightSpeed Holdings — the twenty pages on the lite.computer website and in its
 film, for a fictional holding company:
-https://github.com/DustMinerX/lite-example-showspace — or the zip at
-https://lite.computer/downloads/lite-example-showspace.zip.
+https://github.com/DustMinerX/lite-showcase — or the zip at
+https://lite.computer/downloads/lite-showcase.zip.
 
 ## License
 
