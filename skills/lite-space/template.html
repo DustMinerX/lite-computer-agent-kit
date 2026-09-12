@@ -1,0 +1,84 @@
+<!doctype html>
+<!-- Made with lite.computer — https://lite.computer -->
+<!--
+  Page template for a lite.computer Showspace.
+
+  One page = one self-contained file. Everything the page needs is in it:
+  styles inline, images as data: URIs, system fonts, no script from a CDN,
+  no build step. Move the file anywhere and it still looks the same.
+
+  Colours: call the get_theme tool first and put its six values in :root
+  below. If there is no theme, keep these and use the same ones on every
+  page you write in this Showspace.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- The viewport tag is what makes the phone and narrow-window rules work. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The title becomes the card label in the gallery. Make it specific. -->
+<title>PAGE TITLE</title>
+<style>
+  :root {
+    --bg: #FCFBF7; --surface: #F1EDE3; --ink: #2A2620;
+    --muted: #676156; --border: rgba(0,0,0,.11); --accent: #A38040;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.55;
+    /* Relative units, never a fixed pixel width: the page has to fit a
+       narrow window beside the sidebar and a phone as well as a desk. */
+    max-width: 72ch; margin: 0 auto; padding: 6vh 6vw;
+  }
+  header { margin-bottom: 2.5rem; }
+  .eyebrow { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); line-height: 1.15; margin: .4rem 0 .6rem; }
+  .lede { color: var(--muted); font-size: 1.05rem; }
+  h2 { font-size: 1.05rem; margin: 2rem 0 .6rem; color: var(--accent); }
+  p, li { color: var(--ink); margin-bottom: .7rem; }
+  ul { padding-left: 1.2rem; }
+  a { color: var(--accent); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; margin: 1rem 0; }
+  /* Anything inherently wide gets its own scroll. The page body never
+     scrolls sideways. */
+  .wide { overflow-x: auto; }
+  table { border-collapse: collapse; min-width: 32rem; width: 100%; font-size: .95rem; }
+  th, td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: .9rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<!-- The gallery card is a snapshot of the first screen, taken as soon as
+     the page loads. Keep the first screen readable in the first frame: no
+     fade-in above the fold, and the point of the page at the top. -->
+<header>
+  <div class="eyebrow">SECTION · DATE</div>
+  <h1>PAGE TITLE</h1>
+  <p class="lede">One sentence saying what this page is for.</p>
+</header>
+
+<h2>First heading</h2>
+<p>Body text. Keep each section to about one screen.</p>
+
+<div class="card">
+  <p>A card for the thing the reader most needs to see.</p>
+</div>
+
+<h2>A table</h2>
+<div class="wide">
+  <table>
+    <thead><tr><th>Column</th><th>Column</th><th>Column</th></tr></thead>
+    <tbody>
+      <tr><td>Row</td><td>Row</td><td>Row</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Relative links only. They are what the app's graph view draws. -->
+<footer>
+  <a href="lite.html">← Map of content</a>
+</footer>
+</body>
+</html>

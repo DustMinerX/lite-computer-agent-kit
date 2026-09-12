@@ -1,0 +1,72 @@
+<!doctype html>
+<!-- Made with lite.computer — https://lite.computer -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sales dashboard — September</title>
+<style>
+  :root { --bg:#FCFBF7; --surface:#F1EDE3; --ink:#2A2620; --muted:#676156; --border:rgba(0,0,0,.11); --accent:#A38040; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--ink); line-height:1.5; max-width:96ch; margin:0 auto; padding:5vh 5vw; }
+  header { margin-bottom:2rem; }
+  .eyebrow { font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+  h1 { font-size:clamp(1.6rem,4vw,2.4rem); line-height:1.15; margin:.4rem 0 .6rem; }
+  .lede { color:var(--muted); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(11rem, 1fr)); gap:1rem; margin:1.5rem 0; }
+  .stat { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1rem 1.2rem; }
+  .stat .label { font-size:.8rem; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
+  .stat .value { font-size:1.9rem; font-weight:600; margin:.2rem 0; }
+  .stat .delta { font-size:.9rem; color:var(--accent); }
+  h2 { font-size:1.05rem; margin:2rem 0 .6rem; color:var(--accent); }
+  .wide { overflow-x:auto; }
+  table { border-collapse:collapse; min-width:36rem; width:100%; font-size:.95rem; }
+  th, td { text-align:left; padding:.45rem .6rem; border-bottom:1px solid var(--border); }
+  th { color:var(--muted); font-weight:600; }
+  td.n, th.n { text-align:right; font-variant-numeric:tabular-nums; }
+  a { color:var(--accent); }
+  footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.9rem; color:var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Operations · September 2026 · rewritten 06:00 daily</div>
+  <h1>Sales dashboard</h1>
+  <p class="lede">Month to date against target. Twelve days in.</p>
+</header>
+
+<div class="grid">
+  <div class="stat"><div class="label">Revenue</div><div class="value">₱1.84M</div><div class="delta">41% of ₱4.5M target</div></div>
+  <div class="stat"><div class="label">Orders</div><div class="value">612</div><div class="delta">+9% vs same days in August</div></div>
+  <div class="stat"><div class="label">Average order</div><div class="value">₱3,007</div><div class="delta">−2% vs August</div></div>
+  <div class="stat"><div class="label">Refunds</div><div class="value">11</div><div class="delta">1.8% of orders</div></div>
+</div>
+
+<h2>By channel</h2>
+<div class="wide">
+  <table>
+    <thead><tr><th>Channel</th><th class="n">Revenue</th><th class="n">Orders</th><th class="n">Share</th><th class="n">vs August</th></tr></thead>
+    <tbody>
+      <tr><td>Website</td><td class="n">₱1,102,400</td><td class="n">318</td><td class="n">60%</td><td class="n">+12%</td></tr>
+      <tr><td>Marketplace</td><td class="n">₱512,900</td><td class="n">221</td><td class="n">28%</td><td class="n">+3%</td></tr>
+      <tr><td>Wholesale</td><td class="n">₱224,700</td><td class="n">73</td><td class="n">12%</td><td class="n">−6%</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Warehouse lease, for the decision in the <a href="weekly-brief.html">weekly brief</a></h2>
+<div class="wide">
+  <table>
+    <thead><tr><th>Term</th><th class="n">Monthly</th><th class="n">Total</th><th class="n">Saving vs one year</th></tr></thead>
+    <tbody>
+      <tr><td>One year</td><td class="n">₱185,000</td><td class="n">₱2,220,000</td><td class="n">—</td></tr>
+      <tr><td>Three years</td><td class="n">₱170,200</td><td class="n">₱6,127,200</td><td class="n">₱532,800 over three years</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  <a href="lite.html">← Map of content</a> · <a href="weekly-brief.html">Weekly brief →</a>
+</footer>
+</body>
+</html>
