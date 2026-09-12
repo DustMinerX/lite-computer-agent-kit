@@ -70,7 +70,10 @@ Gemini CLI: `gemini mcp add lite-computer http://127.0.0.1:48484/mcp`.
 Cursor: `.cursor/mcp.json` with `{"mcpServers":{"lite-computer":{"url":"http://127.0.0.1:48484/mcp"}}}`.
 Claude Desktop and every other client:
 https://lite.computer/help/agent-connection.html. Confirm it by listing the
-tools: there are fourteen, the first named `list_vault`.
+tools. There are fourteen: `list_vault`, `read_file`, `search`, `get_links`,
+`get_theme`, `get_diagnostics`, `open_file`, `list_windows`, `list_displays`,
+`open_window`, `explode`, `implode`, `set_sidebar`, `set_presenting`. None of
+them writes, renames or deletes a file; you do that with your own file tools.
 
 **The one prompt a person can paste to have all three done for them:**
 

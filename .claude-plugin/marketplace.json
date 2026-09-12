@@ -1,12 +1,9 @@
 {
   "name": "lite-computer",
+  "description": "Skills for writing pages into a lite.computer Showspace and driving the app.",
   "owner": {
     "name": "Veue Management Corp",
     "email": "support@lite.computer"
-  },
-  "metadata": {
-    "description": "Skills for writing pages into a lite.computer Showspace and driving the app.",
-    "homepage": "https://lite.computer"
   },
   "plugins": [
     {
