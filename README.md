@@ -70,7 +70,8 @@ Reference, with every argument and error: https://lite.computer/help/agent-comma
 
 ## A sample Showspace
 
-Seventeen linked pages and the prompt that made each one:
+LightSpeed Holdings — the twenty pages on the lite.computer website and in its
+film, for a fictional holding company:
 https://github.com/DustMinerX/lite-example-showspace — or the zip at
 https://lite.computer/downloads/lite-example-showspace.zip.
 
