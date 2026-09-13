@@ -6,7 +6,7 @@ Skills, rules and the MCP connection for AI agents that write pages into a
 lite.computer is a Mac app that shows a folder of HTML files as a gallery, a
 graph and a reader, live. Your agent writes ordinary self-contained `.html`
 files into the folder; the app renders them the moment they land. It never
-calls a model and sends nothing anywhere.
+calls a model, and your pages stay on your Mac.
 
 This repository holds one skill, `lite-space`, packaged three ways.
 
