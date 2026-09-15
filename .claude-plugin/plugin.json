@@ -1,7 +1,7 @@
 {
   "name": "lite-space",
   "description": "Write self-contained HTML pages into a lite.computer Showspace, keep its map of content current, and drive the app through its local MCP server.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": { "name": "Veue Management Corp", "email": "support@lite.computer" },
   "homepage": "https://lite.computer",
   "repository": "https://github.com/DustMinerX/lite-computer-agent-kit",

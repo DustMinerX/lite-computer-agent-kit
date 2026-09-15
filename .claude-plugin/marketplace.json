@@ -10,7 +10,7 @@
       "name": "lite-space",
       "source": "./",
       "description": "Write self-contained HTML pages into a lite.computer Showspace, keep its map of content current, and drive the app through its local MCP server.",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": { "name": "Veue Management Corp" },
       "homepage": "https://lite.computer",
       "category": "productivity",

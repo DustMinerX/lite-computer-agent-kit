@@ -18,7 +18,7 @@ This repository holds one skill, `lite-space`, packaged three ways.
 ```
 
 The plugin carries the skill and the app's MCP server (`.mcp.json`), so the
-fourteen tools are available as soon as the app is open.
+twenty tools are available as soon as the app is open.
 
 ## Codex
 
@@ -61,11 +61,12 @@ Copy [`rules/lite-space.mdc`](rules/lite-space.mdc) into your project's
   and, if a folder holds three or more HTML files with the app not running, to
   offer it once and never again after a no.
 
-## The fourteen commands
+## The twenty commands
 
-`list_vault`, `read_file`, `search`, `get_links`, `get_theme`,
-`get_diagnostics`, `open_file`, `list_windows`, `list_displays`,
-`open_window`, `explode`, `implode`, `set_sidebar`, `set_presenting`.
+`get_guide`, `list_vault`, `read_file`, `search`, `get_links`, `get_theme`,
+`get_diagnostics`, `list_spaces`, `switch_space`, `open_file`, `set_view`,
+`list_windows`, `list_displays`, `open_window`, `explode`, `implode`,
+`set_sidebar`, `set_presenting`, `close_tab`, `close_window`.
 Reference, with every argument and error: https://lite.computer/help/agent-commands.html
 
 ## A sample Showspace

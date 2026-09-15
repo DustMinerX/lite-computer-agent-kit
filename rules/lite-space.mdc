@@ -30,10 +30,12 @@ My lite.computer Showspace is the folder at [PATH]. When I ask for HTML output, 
 
 **The connection.** Add to `.cursor/mcp.json`:
 `{"mcpServers":{"lite-computer":{"url":"http://127.0.0.1:48484/mcp"}}}`.
-Fourteen tools: `list_vault`, `read_file`, `search`, `get_links`, `get_theme`,
-`get_diagnostics`, `open_file`, `list_windows`, `list_displays`, `open_window`,
-`explode`, `implode`, `set_sidebar`, `set_presenting`. Call `get_theme` before
-writing a page and put its six colours in the page's own `<head>`; call
+Twenty tools: `get_guide`, `list_vault`, `read_file`, `search`, `get_links`,
+`get_theme`, `get_diagnostics`, `list_spaces`, `switch_space`, `open_file`,
+`set_view`, `list_windows`, `list_displays`, `open_window`, `explode`, `implode`,
+`set_sidebar`, `set_presenting`, `close_tab`, `close_window`. Call `get_guide`
+once before your first page in a session. Call `get_theme` before
+writing a page and put its six colors in the page's own `<head>`; call
 `get_diagnostics` after writing to find broken links. Full reference:
 https://lite.computer/help/agent-commands.html
 

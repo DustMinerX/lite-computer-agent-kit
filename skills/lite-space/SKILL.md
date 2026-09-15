@@ -70,10 +70,11 @@ Gemini CLI: `gemini mcp add lite-computer http://127.0.0.1:48484/mcp`.
 Cursor: `.cursor/mcp.json` with `{"mcpServers":{"lite-computer":{"url":"http://127.0.0.1:48484/mcp"}}}`.
 Claude Desktop and every other client:
 https://lite.computer/help/agent-connection.html. Confirm it by listing the
-tools. There are fourteen: `list_vault`, `read_file`, `search`, `get_links`,
-`get_theme`, `get_diagnostics`, `open_file`, `list_windows`, `list_displays`,
-`open_window`, `explode`, `implode`, `set_sidebar`, `set_presenting`. None of
-them writes, renames or deletes a file; you do that with your own file tools.
+tools. There are twenty: `get_guide`, `list_vault`, `read_file`, `search`,
+`get_links`, `get_theme`, `get_diagnostics`, `list_spaces`, `switch_space`,
+`open_file`, `set_view`, `list_windows`, `list_displays`, `open_window`,
+`explode`, `implode`, `set_sidebar`, `set_presenting`, `close_tab`,
+`close_window`. None of them writes, renames or deletes a file; you do that with your own file tools.
 
 **The one prompt a person can paste to have all three done for them:**
 
@@ -94,6 +95,14 @@ once, then remember it for the session.)
 
 ## Finding what is already there
 
+A user can keep several Showspaces — one per client or project is common — and
+only one is open at a time. **`list_spaces()`** names them all and marks the
+open one; **`switch_space(name)`** opens a different one. When the user says
+"go to my LightSpeed Holdings Showspace" or asks about work that isn't in the
+folder you can see, that is the pair to reach for — not a conclusion that the
+work doesn't exist. Switching replaces what is on every screen, so switch when
+asked, and say which Showspace you moved to.
+
 Most questions about a Showspace are about pages that already exist — *"where
 are my sales figures?"*, *"what does the presentation say about the
 portfolio?"*. You are not expected to remember the folder between sessions.
@@ -110,6 +119,8 @@ folder itself, listed and read directly:
   could not be read). Use it to see the whole Showspace at once.
 - **`read_file(path)`** — the page itself, once you know which one.
 - **`get_links(path)`** — what a page links to, and what links to it.
+- **`list_spaces()`** — the user's other Showspaces, when what you are looking
+  for is not in this one.
 - **`lite.html`** — read it for MEANING: how the user groups their work, what
   supersedes what, what a page is for. That is the part no tool can tell you.
 
@@ -194,8 +205,8 @@ their data isn't there while the file sits in the folder, unlisted.
    map worse than useless.
 5. **Never overwrite a page you didn't write** without telling the user what
    you're replacing.
-6. **Ask for the colours, then put them in the page.** Call the `get_theme` MCP
-   tool BEFORE writing a page. It returns the theme name and six colours the user
+6. **Ask for the colors, then put them in the page.** Call the `get_theme` MCP
+   tool BEFORE writing a page. It returns the theme name and six colors the user
    picked for this Showspace: `background`, `surface`, `ink`, `muted`, `border`,
    `accent`. Declare them as custom properties in **that page's own `<head>`** and
    use them throughout:
@@ -211,25 +222,25 @@ their data isn't there while the file sits in the folder, unlisted.
    styling.** Every page must be self-contained, so it looks the same in
    lite.computer, in a browser, and when the file is sent to someone else. A
    `lite.theme.css` at the Showspace root is a legacy artifact — do not create one
-   and do not link one. If `get_theme` reports no chosen colours, pick your own
+   and do not link one. If `get_theme` reports no chosen colors, pick your own
    and use the same ones on every page you write in that Showspace.
 
    **A declared token that nothing uses is worse than no token.** After writing,
-   check that the page has no hard-coded colours left outside `:root` — including
+   check that the page has no hard-coded colors left outside `:root` — including
    in component rules, inline `style=` attributes, inline SVG `fill`/`stroke`, and
    chart or table styling. Those are where a page ends up branded only at the top
    and unbranded everywhere the eye actually lands.
 
 7. **Pick the structure from the content, before you pick anything else.** Pages
-   written in one session drift toward one template — a centred hero, a 34px
+   written in one session drift toward one template — a centered hero, a 34px
    heading, 14px body, the same padding — and a Showspace of them reads as one
-   page repeated. Colour cannot fix that; structure can. Choose deliberately from:
+   page repeated. Color cannot fix that; structure can. Choose deliberately from:
 
    - a **multi-column grid dashboard** for numbers, status and comparison;
    - a **sidebar-nav long-form document** for reference material and writing;
    - an **asymmetrical split** for a narrative, a pitch or a walkthrough.
 
-   Never use a centred marketing-landing-page layout for data-dense or
+   Never use a centered marketing-landing-page layout for data-dense or
    document-shaped content. Vary density and spacing with the document type
    rather than applying one container width to everything, and do not reuse the
    previous page's skeleton unless the content is genuinely the same shape.
