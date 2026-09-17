@@ -27,12 +27,14 @@ cp -R skills/lite-space ~/.codex/skills/lite-space
 codex mcp add lite-computer --url http://127.0.0.1:48484/mcp
 ```
 
-The paragraph for `AGENTS.md` is in [`codex/AGENTS-snippet.md`](codex/AGENTS-snippet.md).
+The note for `~/.codex/AGENTS.md` is in [`codex/AGENTS-snippet.md`](codex/AGENTS-snippet.md).
 
 ## Cursor
 
-Copy [`rules/lite-space.mdc`](rules/lite-space.mdc) into your project's
-`.cursor/rules/`, and add the server to `.cursor/mcp.json`:
+Add [`rules/lite-space.mdc`](rules/lite-space.mdc) to Cursor's **User Rules**, so it
+applies in every project — or to `.cursor/rules/` in a project that is **not** your
+Showspace; a rules folder inside a Showspace makes files there into instructions for
+the agent. Add the server to `~/.cursor/mcp.json`:
 
 ```json
 { "mcpServers": { "lite-computer": { "url": "http://127.0.0.1:48484/mcp" } } }
@@ -40,8 +42,10 @@ Copy [`rules/lite-space.mdc`](rules/lite-space.mdc) into your project's
 
 ## Any other agent
 
-- The standing instruction to paste into its instructions file: the paragraph in
-  [`codex/AGENTS-snippet.md`](codex/AGENTS-snippet.md), with your folder's path in place of `[PATH]`.
+- The note to keep in its global instructions (not a project file, never inside a
+  Showspace): the marked note in [`codex/AGENTS-snippet.md`](codex/AGENTS-snippet.md),
+  with your folder's path in place of `[PATH]`. The prompt that sets all of this up
+  for you is in the app, under your name → Agent Helper.
 - The MCP server: `http://127.0.0.1:48484/mcp`, Streamable HTTP, while the app is open.
   Every client's one-line install: https://lite.computer/help/agent-connection.html
 - The page template: [`skills/lite-space/template.html`](skills/lite-space/template.html),
