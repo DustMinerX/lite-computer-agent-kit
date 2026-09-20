@@ -330,21 +330,110 @@ their data isn't there while the file sits in the folder, unlisted.
    people the same report but cannot repair anything; you can. Fix what it names.
    It does not report conventions: duplicate titles, a missing `lite.html` and
    files still held in the cloud are not faults.
+## Pages that stay current — pick the route by where the numbers live
 
-## Recommended pattern — data/presentation split
+A dashboard, a menu board, a page of customer records: the numbers live
+somewhere, something brings them to the page, the page redraws. Pick the route
+from the source, and tell the person in one sentence which route you chose and
+what it needs from them.
 
-For pages that refresh often (dashboards, digests, trackers):
+**The rule that decides everything: a page cannot read a file beside it.** Pages
+render sandboxed with no origin, so `fetch()`, `XMLHttpRequest` and `import()` of
+a sibling `data.json` or `.csv` all fail in the app. **A `<script src>` is not
+blocked**, so data beside a page arrives as a script. The failure is silent in the
+app and *passes* in a browser over a local web server, so check the page in the
+app.
 
-- Build the page once so it `fetch()`es a sibling `data.json` and renders
-  from it.
-- On refresh requests, rewrite **only** `data.json`, never the HTML.
+### Route 1 — an open web service: the page fetches it itself
 
-Cheaper per update, and a regeneration can never mangle the layout.
+Prices, exchange rates, weather: any address that answers a page from anywhere.
+The page calls it on a timer. Nothing to install. Try the request once; it either
+works or fails at once. **Google Sheets links fail this way** (`/pub`, `/gviz`,
+`/export`), though they work from an ordinary website: use Route 2. Never put a
+key or a password in a page; a service that needs one belongs in Route 2.
 
-## Scheduled refresh
+### Route 2 — a spreadsheet, a file, an export link, a connector: a data script
 
-If the user wants a page kept fresh automatically, set up (with their
-approval) a cron job / launchd agent / scheduled task that runs the refresh
-prompt. Typical cost is $0.03–0.10 in tokens per refresh; the user controls
-cadence. lite.computer itself never calls AI and never spends tokens — it
-only renders what you write.
+1. **Build the page once.** It renders from text handed to it, carries a saved
+   copy of that text so it is never blank, and shows a small status line: when it
+   last read its numbers, or that it is showing the saved copy.
+2. **Put the numbers beside it as `name.data.js`**, one call and nothing else:
+   ``window.liteData&&window.liteData(`csv or json text`);`` Escape backslashes,
+   backticks and `${` when you write it, and put the text on screen with
+   `textContent` or an escaping helper, never raw `innerHTML`. Treat a data script
+   like a page: anyone who can write to the folder can change what it runs. Many
+   pages fed by one source share one data script.
+3. **The page re-reads it on a timer:**
+
+   ```js
+   window.liteData = function (text) { /* parse, compare with last, redraw */ };
+   var loading = false;
+   function load() {
+     if (loading) return;
+     loading = true;
+     var s = document.createElement('script');
+     var done = function () { clearTimeout(t); loading = false; s.remove(); };
+     var t = setTimeout(done, 15000);
+     s.onload = done;
+     s.onerror = function () { done(); /* first load only: use the saved copy */ };
+     s.src = 'name.data.js?t=' + Date.now();   // the query is required
+     document.head.appendChild(s);
+   }
+   load(); setInterval(load, 15000);
+   ```
+
+   The page must poll, because the app watches only `.html` files. Match the
+   interval to the source: no faster than the refresh below, 5 seconds at the
+   quickest, a minute for a wall of dashboards.
+4. **A small refresh script fills the file. It must:** write the new file under a
+   unique temporary name and swap it in whole; keep the last good copy and exit
+   non-zero on any failure; leave the file untouched when nothing changed; and
+   check what a link really returned, because a sheet that is not shared answers
+   with a sign-in page, not an error. A Google Sheet is one `curl` of
+   `https://docs.google.com/spreadsheets/d/<ID>/export?format=csv` (served fresh;
+   "Publish to the web" links lag about five minutes). An `.xlsx` is a zip of XML:
+   read the first sheet. A Numbers file: export it to CSV first. A tested script
+   for all three is at https://lite.computer/help/data-sources.html; if you cannot
+   reach it, write your own to these rules. Keep scripts, keys and connection
+   strings outside the Showspace, keys in the Keychain or the environment.
+5. **The script runs once and exits; something must run it again.** A Google Sheet
+   has no local file to watch, so it needs a schedule, every minute or slower. A
+   local file can use a schedule or a job that fires when the file changes. **Ask
+   before installing anything**: say what it is, where it goes, how often it runs
+   and how to remove it. On a Mac that is a launchd agent in
+   `~/Library/LaunchAgents`, named so the person can recognise it. It runs while
+   the Mac is on, with lite.computer open or closed, and costs no tokens.
+
+**If you cannot do a step, say so and hand it over.** No shell: write the page,
+the first `name.data.js` and the refresh script, and give the person the one
+command to run. Browser-only, no file access: use Route 1 or put the numbers in
+the page, and say that a page fed from a file needs an AI that can run things on
+their Mac. Running in the cloud on a schedule: fetch in your own environment and
+write `name.data.js` or the page into the synced folder; never try to install a
+scheduler on a Mac you cannot reach.
+
+**A Google Sheet must be shared "Anyone with the link · Viewer".** Tell the
+person plainly: anyone who has that link can read the sheet, with no sign-in. For
+payroll, customer details or anything confidential, or where their company
+forbids link sharing, use a workbook or CSV on their Mac instead, or refresh the
+page yourself through your own connection to their account, and say that each of
+those refreshes uses their AI plan. A OneDrive workbook must be set to "Always
+keep on this device", or the script finds a placeholder, not the file.
+
+### Route 3 — rewrite the page itself
+
+For pages that change rarely (a morning digest, a weekly report), a script, or
+you on a schedule, regenerates the whole `.html`; the app reloads the open page.
+Simplest, but it resets a slider or a scroll position, so prefer Route 2 for
+anything interactive or left open all day. Your own scheduled runs spend the
+person's tokens (typically $0.03–0.10 each); a script does not.
+
+### It is one way
+
+Numbers flow from the source to the page. A page cannot save a file or change a
+spreadsheet; sliders and inputs change what is on screen only, so say that on the
+page. When the person wants a number changed, they tell you, and you change the
+source.
+
+lite.computer itself never calls AI and never spends tokens — it only renders
+what you write.
