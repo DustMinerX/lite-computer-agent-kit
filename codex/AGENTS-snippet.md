@@ -14,7 +14,7 @@ cp -R skills/lite-space ~/.codex/skills/lite-space
 Then connect the app, once:
 
 ```sh
-codex mcp add lite-computer --url http://127.0.0.1:48484/mcp
+codex mcp add lite-computer -- /Applications/lite.computer.app/Contents/MacOS/lite-computer --mcp-stdio
 ```
 
 Codex inside the ChatGPT desktop app reads the same settings, so both are

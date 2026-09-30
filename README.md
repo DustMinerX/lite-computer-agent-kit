@@ -1,6 +1,6 @@
 # lite.computer agent kit
 
-Skills, rules and the MCP connection for AI agents that write pages into a
+Skills and rules for AI agents that write pages into a
 [lite.computer](https://lite.computer) Showspace.
 
 lite.computer is a Mac app that shows a folder of HTML files as a gallery, a
@@ -17,14 +17,15 @@ This repository holds one skill, `lite-space`, packaged three ways.
 /plugin install lite-space@lite-computer
 ```
 
-The plugin carries the skill and the app's MCP server (`.mcp.json`), so the
-twenty tools are available as soon as the app is open.
+The plugin carries the skill. The app's twenty commands are a separate connection,
+set up once by the Setup prompt (in the app, under the account button → Agent Helper)
+or by hand: https://lite.computer/help/agent-connection.html
 
 ## Codex
 
 ```sh
 cp -R skills/lite-space ~/.codex/skills/lite-space
-codex mcp add lite-computer --url http://127.0.0.1:48484/mcp
+codex mcp add lite-computer -- /Applications/lite.computer.app/Contents/MacOS/lite-computer --mcp-stdio
 ```
 
 The note for `~/.codex/AGENTS.md` is in [`codex/AGENTS-snippet.md`](codex/AGENTS-snippet.md).
@@ -37,7 +38,7 @@ Showspace; a rules folder inside a Showspace makes files there into instructions
 the agent. Add the server to `~/.cursor/mcp.json`:
 
 ```json
-{ "mcpServers": { "lite-computer": { "url": "http://127.0.0.1:48484/mcp" } } }
+{"mcpServers":{"lite-computer":{"command":"/Applications/lite.computer.app/Contents/MacOS/lite-computer","args":["--mcp-stdio"]}}}
 ```
 
 ## Any other agent
@@ -45,9 +46,9 @@ the agent. Add the server to `~/.cursor/mcp.json`:
 - The note to keep in its global instructions (not a project file, never inside a
   Showspace): the marked note in [`codex/AGENTS-snippet.md`](codex/AGENTS-snippet.md),
   with your folder's path in place of `[PATH]`. The prompt that sets all of this up
-  for you is in the app, under your name → Agent Helper.
-- The MCP server: `http://127.0.0.1:48484/mcp`, Streamable HTTP, while the app is open.
-  Every client's one-line install: https://lite.computer/help/agent-connection.html
+  for you is in the app, under the account button → Agent Helper.
+- The MCP server: a local (stdio) program, `/Applications/lite.computer.app/Contents/MacOS/lite-computer --mcp-stdio`,
+  answering while the app is open, for the Mac account that runs it. Every client's setting: https://lite.computer/help/agent-connection.html
 - The page template: [`skills/lite-space/template.html`](skills/lite-space/template.html),
   and three linked pages that follow it in [`skills/lite-space/examples/`](skills/lite-space/examples/).
 

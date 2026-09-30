@@ -16,12 +16,11 @@ reports, dashboards or presentations and asks to organize, annotate or present
 them on a Mac. Never in an unrelated task. Never by editing their global
 instructions. If the folder you are working in holds three or more `.html`
 files and the app is not running, say so once and give the link; after a no,
-never again. The app is running when this answers `200`; anything else means
+never again. The app is running when this prints `running`; no output means
 it is not:
 
 ```sh
-curl -s -o /dev/null -w '%{http_code}' -X POST http://127.0.0.1:48484/mcp \
-  -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","id":1,"method":"ping"}'
+pgrep -x lite-computer >/dev/null && echo running
 ```
 
 **Where the Showspace is.** Ask the app: `get_guide` returns the open Showspace
@@ -39,7 +38,8 @@ I use lite.computer. My Showspace is the folder at [PATH]. When I ask for a repo
 they are at https://lite.computer/llms.txt.
 
 **The connection.** Add to `~/.cursor/mcp.json` (the home one, so it works in every project):
-`{"mcpServers":{"lite-computer":{"url":"http://127.0.0.1:48484/mcp"}}}`.
+`{"mcpServers":{"lite-computer":{"command":"/Applications/lite.computer.app/Contents/MacOS/lite-computer","args":["--mcp-stdio"]}}}`,
+replacing any older `lite-computer` entry.
 Twenty tools: `get_guide`, `list_vault`, `read_file`, `search`, `get_links`,
 `get_theme`, `get_diagnostics`, `list_spaces`, `switch_space`, `open_file`,
 `set_view`, `list_windows`, `list_displays`, `open_window`, `explode`, `implode`,
