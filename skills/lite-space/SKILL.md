@@ -335,6 +335,36 @@ their data isn't there while the file sits in the folder, unlisted.
    people the same report but cannot repair anything; you can. Fix what it names.
    It does not report conventions: duplicate titles, a missing `lite.html` and
    files still held in the cloud are not faults.
+10. **Move things with CSS; time anything you script.** Pages run in a sandboxed
+   frame, and until someone clicks inside a page, WebKit holds its script
+   animation to 30 frames a second and its timers to about 33 runs a second.
+   lite.computer keeps step-by-step animation finishing on time, but it is
+   still drawn 30 times a second, and timers stay held. CSS animation is never
+   held back.
+
+   - Use CSS `@keyframes` and `transition` for motion: fades, slides, pulses,
+     progress bars, a number easing in.
+   - When motion has to be scripted (a canvas, a count-up, a particle field),
+     move it by **elapsed time**, never by a fixed step per frame. A fixed step
+     depends on the frame rate: it runs slow wherever frames are held back
+     (other apps, browsers, low-power mode) and fast on a 120 Hz screen:
+     ```js
+     const start = performance.now();
+     function frame(now) {
+       const p = Math.min(1, Math.max(0, (now - start) / 2000)); // 0 → 1 over two seconds
+       draw(p);
+       if (p < 1) requestAnimationFrame(frame);
+     }
+     requestAnimationFrame(frame);
+     ```
+   - Never step an animation with `setInterval` or `setTimeout`.
+   - Honor `@media (prefers-reduced-motion: reduce)`: stop the motion or cut
+     it short.
+   - "Finishes on time" and "smooth" are different things. Elapsed time makes a
+     two-second animation take two seconds at any frame rate; it cannot add
+     frames. If the motion must look smooth, put it in CSS.
+   - A page that paces its own frames and must be left alone can say so in its
+     `<head>`: `<meta name="lite-animation" content="native">`.
 ## Pages that stay current — pick the route by where the numbers live
 
 A dashboard, a menu board, a page of customer records: the numbers live
