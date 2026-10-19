@@ -191,14 +191,24 @@ available in this client, the one-line install per agent is at
 https://lite.computer/help/agent-connection.html, and the fallback is the
 folder itself, listed and read directly:
 
-- **`search(query)`** — full text across title, path and body, ranked
+- **`search(query)`** — title, path and the first 64 KB of each page's text, ranked
   best-first. Reach for this first on any "where is / what does it say"
   question.
-- **`list_vault()`** — every page with its path, title, modified time, and
-  `map_status` (`listed` / `not_listed` / `unknown`, the last meaning the map
-  could not be read). Use it to see the whole Showspace at once.
+- **`list_vault()`** (optional `folder`, `limit`, `cursor`) — the pages with
+  their path, title, modified time, and `map_status` (`listed` / `not_listed` /
+  `unknown`, the last meaning the map could not be read). Up to 500 pages come
+  back whole. Above 500 it returns `pagination_required` with the folders and
+  their page counts and **no files**: then ask for one `folder`, or page with
+  `limit` and `cursor` until `next_cursor` is null. Never conclude a page is
+  absent from a `pagination_required` answer.
+- **Check `complete` before deciding a page is not there.** `list_vault`,
+  `search`, `get_links` and `list_comments` each say `complete`. When it is
+  `false`, `warning` says what could not be indexed or read (for example more
+  than 2,000 pages, folders that could not be read, or pages still in the
+  cloud), and a page missing from the answer may still exist: say so to the
+  user instead of reporting it absent.
 - **`read_file(path)`** — the page itself, once you know which one.
-- **`get_links(path)`** — what a page links to, and what links to it.
+- **`get_links(path)`** — what a page links to, and what links to it, read from the first 64 KB of each page (512 KB of the root `lite.html`); check `complete`.
 - **`list_spaces()`** — the user's other Showspaces, when what you are looking
   for is not in this one.
 - **`lite.html`** — read it for MEANING: how the user groups their work, what
@@ -211,7 +221,8 @@ that is not current at all — it was measured covering 13 of 35 pages on one
 real Showspace and 34 of 53 on another. **The one exception: the index can
 briefly lag a write.** A page you saved seconds ago may not be in it yet, so
 re-check rather than trust a `not_listed` about your own just-written file.
-That is the only case where the map can be ahead of the tools.
+The other case is an answer with `complete: false`: the map may list a page
+the index could not reach.
 
 **Never answer "you don't have any X" because the map does not mention X.**
 Search first. A stale map produces confident false negatives, which is the one
@@ -263,8 +274,9 @@ their data isn't there while the file sits in the folder, unlisted.
    `lite.html` doesn't exist, offer to create it.
 
    **It is not a file listing, and must not try to be one.** `list_vault`
-   already returns every page in the Showspace from Lite's folder index, so it
-   never needs maintaining — the map cannot win that race and does not need to
+   already lists the Showspace's pages from Lite's folder index (every page up
+   to 2,000, and it says `complete: false` past that), so it never needs
+   maintaining — the map cannot win that race and does not need to
    enter it. What `list_vault` cannot say is that three files belong to one
    client, that the Q3 figures supersede Q2, or what any page is *for*. That
    curation is the map's whole job and the only part worth maintaining.
@@ -276,7 +288,7 @@ their data isn't there while the file sits in the folder, unlisted.
 
    **Add a page only when its `map_status` is exactly `not_listed`.** On
    `unknown` the app could not read the map completely (it is still in the
-   cloud, larger than the 64KB link scan, or past the index cap; `reason` says
+   cloud, larger than the 512KB link scan, or past the index cap; `reason` says
    which, and `coverage_known` is false with no counts given). Adding entries
    then would duplicate pages the map already lists — open `lite.html` and read
    it instead. Never treat `unknown` as "not there".
@@ -331,7 +343,7 @@ their data isn't there while the file sits in the folder, unlisted.
    pages, call the `get_diagnostics` MCP tool. It returns every link to a page
    that does not exist and every `src` / `<link href>` / CSS `url()` that does
    not resolve inside the Showspace — each with the page's path and the exact
-   missing target — plus the file count against the 500-file cap. The app shows
+   missing target — plus the file count against the 2,000-page cap. The app shows
    people the same report but cannot repair anything; you can. Fix what it names.
    It does not report conventions: duplicate titles, a missing `lite.html` and
    files still held in the cloud are not faults.
