@@ -336,6 +336,13 @@ their data isn't there while the file sits in the folder, unlisted.
    document-shaped content. Vary density and spacing with the document type
    rather than applying one container width to everything, and do not reuse the
    previous page's skeleton unless the content is genuinely the same shape.
+
+   Give each main block you create — a section, a dashboard card, a table, a
+   chart, a KPI box — a short, unique, meaningful `id`, and keep it across
+   rewrites while the block's role survives. It is what lets a comment the person
+   pins to that block find it again after you revise the page. Put ids on blocks,
+   not on every `<p>` or `<td>`, and treat the `id` as a secondary hint, the
+   block's own text as primary.
 8. **Folders are navigation.** Put pages where they belong
    (`notes/`, `projects/`, `analytics/`…) — the user navigates by remembering
    where things live, so never reorganize existing structure unasked.
